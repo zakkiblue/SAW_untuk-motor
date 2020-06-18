@@ -22,6 +22,27 @@ if (isset($_GET['hapus_id'])) {
 	document.location.href = 'index.php';
 	</script>";
 }
+$list_harga = [
+	5 => "Harga > 15jt",
+	4 => "12jt - 15jt",
+	3 => "10jt - 12jt",
+	2 => "  Harga < 10jt "
+];
+$list_cc = [
+	5 => " > 150cc",
+	4 => "125cc - 150cc",
+	3 => "110cc - 120cc",
+	2 => "  < 110cc "
+];
+$list_desain = [
+	5 => " Sangat bagus",
+	3 => "Bagus",
+	1 => " Jelek "
+];$list_tahun = [
+	5 => " > 5th lalu",
+	3 => " 2th - 5th lalu",
+	1 => "  tahun ini - 2th lalu  "
+];
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,8 +66,8 @@ if (isset($_GET['hapus_id'])) {
 			<option value="2"> < 110cc</option>
 		</select>
 		<select name="desain" id="desain">
-			<option value="5"> Bagus</option>
-			<option value="3"> Lumayan</option>
+			<option value="5">Sangat Bagus</option>
+			<option value="3"> Bagus</option>
 			<option value="1"> Jelek </option>
 		</select>
 		<select name="tahun" id="tahun">
@@ -71,10 +92,10 @@ if (isset($_GET['hapus_id'])) {
 			<tr>
 				<td><?= $i++; ?></td>
 				<td><?= $row['nama'];?></td>
-				<td><?= $row['harga'];?></td>
-				<td><?= $row['cc'];?></td>
-				<td><?= $row['desain'];?></td>
-				<td><?= $row['tahun_keluar'];?></td>
+				<td><?= $list_harga[$row['harga']];?></td>
+				<td><?= $list_cc[$row['cc']];?></td>
+				<td><?= $list_desain[$row['desain']];?></td>
+				<td><?= $list_tahun[$row['tahun_keluar']];?></td>
 				<td><a href="index.php?hapus_id=<?= $row['id']; ?>" onclick="return confirm('Hapus data ? ');">Hapus</a></td>
 			</tr>
 		<?php endwhile; ?>
