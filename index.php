@@ -56,6 +56,9 @@ $list_desain = [
 	<title>SPK Memilih Sepeda Motor</title>
 </head>
 <body>
+	<div>
+		<h1>SPK Metode SAW untuk mencari Motor paling sesuai</h1>
+	</div>
 	<form action="" method="post">
 		<input type="text" name="nama" placeholder="Nama Motor" required="">
 		<select name="harga" id="id_harga" required="">
