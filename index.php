@@ -1,6 +1,11 @@
 <?php
 $conn = mysqli_connect("localhost","root","","spk_motor");
 $motor = mysqli_query($conn, "SELECT * FROM motor");
+$cost_harga = mysqli_fetch_row(mysqli_query($conn, "SELECT MIN(harga) AS cost_harga FROM motor"));
+$cost_tahun = mysqli_fetch_row(mysqli_query($conn, "SELECT MIN(tahun_keluar) FROM motor"));
+$benf_cc = mysqli_fetch_row(mysqli_query($conn, "SELECT MAX(cc) FROM motor"));
+$benf_desain = mysqli_fetch_row(mysqli_query($conn, "SELECT MAX(desain) FROM motor"));
+
 if (isset($_POST['submit'])) 
 	{
 		$nama = $_POST['nama'];
@@ -86,16 +91,18 @@ $list_desain = [
 				<th>CC</th>
 				<th>Desain</th>
 				<th>Tahun</th>
+				<th>Value</th>
 				<th>Aksi</th>
 			</tr>
 			<?php $i = 1; while ( $row = mysqli_fetch_assoc($motor)): ?>
 			<tr>
 				<td><?= $i++; ?></td>
-				<td><?= $row['nama'];?></td>
-				<td><?= $list_harga[$row['harga']];?></td>
-				<td><?= $list_cc[$row['cc']];?></td>
-				<td><?= $list_desain[$row['desain']];?></td>
-				<td><?= $list_tahun[$row['tahun_keluar']];?></td>
+				<td><?php echo $row['nama']; ?></td>
+				<td><?php echo $list_harga[$row['harga']]; $v1 = $cost_harga[0]/$row['harga']; ?></td>
+				<td><?php echo $list_cc[$row['cc']]; $v2 = $row['cc']/$benf_cc[0]; ?></td>
+				<td><?php echo $list_desain[$row['desain']]; $v3 = $row['desain']/$benf_desain[0]; ?></td>
+				<td><?php echo $list_tahun[$row['tahun_keluar']]; $v4 = $cost_tahun[0]/$row['tahun_keluar']; ?></td>
+				<td><?php echo $w = ($v1*0.4)+($v2*0.3)+($v3*0.1)+($v4*0.2); ?></td>
 				<td><a href="index.php?hapus_id=<?= $row['id']; ?>" onclick="return confirm('Hapus data ? ');">Hapus</a></td>
 			</tr>
 		<?php endwhile; ?>
