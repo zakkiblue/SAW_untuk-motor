@@ -1,7 +1,7 @@
 <?php
 $conn = mysqli_connect("localhost","root","","spk_motor");
 $motor = mysqli_query($conn, "SELECT * FROM motor");
-$cost_harga = mysqli_fetch_row(mysqli_query($conn, "SELECT MIN(harga) AS cost_harga FROM motor"));
+$cost_harga = mysqli_fetch_row(mysqli_query($conn, "SELECT MIN(harga) FROM motor"));
 $cost_tahun = mysqli_fetch_row(mysqli_query($conn, "SELECT MIN(tahun_keluar) FROM motor"));
 $benf_cc = mysqli_fetch_row(mysqli_query($conn, "SELECT MAX(cc) FROM motor"));
 $benf_desain = mysqli_fetch_row(mysqli_query($conn, "SELECT MAX(desain) FROM motor"));
@@ -28,25 +28,25 @@ if (isset($_GET['hapus_id'])) {
 	</script>";
 }
 $list_harga = [
-	5 => "Harga > 15jt",
-	4 => "12jt - 15jt",
-	3 => "10jt - 12jt",
-	2 => "  Harga < 10jt "
+	5 => " Harga lebih 15jt",
+	4 => "12.000.001 - 15.000.000",
+	3 => "10.000.000 - 12.000.000",
+	2 => "  Kurang dari 10.000.000 "
 ];
 $list_cc = [
 	5 => " > 150cc",
 	4 => "125cc - 150cc",
-	3 => "110cc - 120cc",
-	2 => "  < 110cc "
+	3 => "110cc - 124cc",
+	2 => "  Kurang dari 110cc "
 ];
 $list_desain = [
 	5 => " Sangat bagus",
 	3 => "Bagus",
 	1 => " Jelek "
 ];$list_tahun = [
-	5 => " > 5th lalu",
+	5 => " Lebih 5th lalu",
 	3 => " 2th - 5th lalu",
-	1 => "  tahun ini - 2th lalu  "
+	1 => "  kurang dari 2th lalu  "
 ];
  ?>
 <!DOCTYPE html>
@@ -62,15 +62,15 @@ $list_desain = [
 	<form action="" method="post">
 		<input type="text" name="nama" placeholder="Nama Motor" required="">
 		<select name="harga" id="id_harga" required="">
-			<option value="5"> Harga > 15jt</option>
-			<option value="4"> 12jt - 15jt</option>
-			<option value="3"> 10jt - 12jt</option>
-			<option value="2"> Harga < 10jt</option>
+			<option value="5"> Harga lebih 15jt</option>
+			<option value="4"> 12.000.001 - 15.000.000</option>
+			<option value="3"> 10.000.000 - 12.000.000</option>
+			<option value="2"> Harga < 10.000.000</option>
 		</select>
 		<select name="cc" id="cc">
 			<option value="5"> > 150 cc</option>
 			<option value="4"> 125cc - 150cc </option>
-			<option value="3"> 110cc - 120cc </option>
+			<option value="3"> 110cc - 124cc </option>
 			<option value="2"> < 110cc</option>
 		</select>
 		<select name="desain" id="desain">
@@ -81,7 +81,7 @@ $list_desain = [
 		<select name="tahun" id="tahun">
 			<option value="5"> > 5th lalu</option>
 			<option value="3"> 2th - 5th lalu</option>
-			<option value="1"> tahun ini - 2th lalu </option>
+			<option value="1"> Kurang dari 2th lalu </option>
 		</select>	
 		<button name="submit" type="submit">Submit</button>
 	</form>
